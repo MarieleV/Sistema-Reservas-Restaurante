@@ -77,6 +77,44 @@ Sistema que permite que os clientes do restaurante realizem reservas de mesas de
 
 O sistema será projetado já com **separação lógica clara entre módulos** (autenticação, cliente, reserva, administração), o que facilitará uma eventual migração futura para microsserviços, caso necessário.
 
+A transição de um arquivo único para um Monolito Modular (separação lógica baseada em domínios) é o movimento mais inteligente que você pode fazer agora. Isso não apenas limpa o seu código atual, mas cria fronteiras claras: se amanhã você quiser transformar a "Reserva" em um microsserviço ou micro-frontend isolado, a lógica já estará encapsulada.
+
+### A Arquitetura Proposta: Feature-Sliced / Monolito Modular
+
+A ideia central é criar uma pasta para cada domínio de negócio ("futuros microsserviços") e uma pasta para coisas globais que todos podem usar.
+Estruturação do front-end/src
+
+```bash
+front-end/src/
+├── shared/                 # 1. Tudo que é genérico e reaproveitável (compartilhado)
+│   ├── components/         # Button, Label, Input, StatusBadge, NavBar, Tabs
+│   ├── utils/              # formatDate, todayStr, load (localStorage)
+│   └── types/              # (Opcional) Tipos globais que cruzam domínios
+│
+├── modules/                # 2. A separação lógica (Seus domínios)
+│   ├── auth/               # ➔ Domínio de Autenticação
+│   │   ├── pages/          # LandingPage.tsx, RegisterPage.tsx
+│   │   └── hooks/          # useAuth.ts (lógica de login/registro)
+│   │
+│   ├── client/             # ➔ Domínio do Cliente
+│   │   ├── components/     # Formulário de edição de perfil (isolado)
+│   │   └── pages/          # ClientDashboard.tsx
+│   │
+│   ├── reservation/        # ➔ Domínio de Reservas
+│   │   ├── components/     # ReservationCard.tsx
+│   │   ├── pages/          # ReservationFormPage.tsx
+│   │   └── types/          # Reservation, ReservationStatus
+│   │
+│   └── admin/              # ➔ Domínio de Administração
+│       └── pages/          # AdminDashboard.tsx
+│
+├── routes/                 # 3. Orquestração das telas
+│   └── AppRoutes.tsx       # Configuração do React Router Dom
+│
+├── App.tsx                 # 4. Ponto de entrada limpo (Apenas provedores)
+├── main.tsx                
+└── index.css
+```
 ## 🛠️ Principais Tecnologias
 
 <div align="center">
