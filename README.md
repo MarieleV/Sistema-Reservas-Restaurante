@@ -25,7 +25,7 @@
 
 ### 🧭 Sumário
 
-[Escopo](#-escopo) • [Funcionalidades Principais](#-funcionalidades-principais) • [Requisitos Funcionais](#-requisitos-funcionais-rf) • [Requisitos Não Funcionais](#-requisitos-não-funcionais-rnf) • [Arquitetura](#-arquitetura) • [Tecnologias](#-principais-tecnologias)
+ [Funcionalidades Principais](#-funcionalidades-principais) • [Requisitos Funcionais](#-requisitos-funcionais-rf) • [Requisitos Não Funcionais](#-requisitos-não-funcionais-rnf) • [Arquitetura](#-arquitetura) • [Tecnologias](#-principais-tecnologias)
 
 </div>
 
