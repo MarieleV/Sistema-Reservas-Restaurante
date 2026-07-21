@@ -127,26 +127,3 @@ front-end/src/
 | **Autenticação** | JWT (JSON Web Token) | Permite autenticação sem necessidade de manter sessões ativas no servidor, contribuindo para a escalabilidade do sistema. |
 
 </div>
-
-## 👥 Organização das Tarefas
-
-<div align="center">
-
-| Integrante | Responsabilidade |
-|:---:|---|
-| **Mariele Vieira** | Back-End (Node.js e Express.js) e Banco de Dados (MySQL) |
-| **Maria Giuliari** | Front-End (JavaScript) e Autenticação (JWT) |
-
-</div>
-
-> **Observação para execução do ambiente:**
-> 1. Ligar o XAMPP
-> 2. No terminal, executar `node app.js`
-
-<div align="center">
-
----
-
-**Equipe:** Maria Giuliari e Mariele Vieira
-
-</div>
