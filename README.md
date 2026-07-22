@@ -115,6 +115,42 @@ front-end/src/
 ├── main.tsx                
 └── index.css
 ```
+
+```bash
+back-end/
+├── src/
+│   ├── config/              (Banco de dados, variáveis de ambiente)
+│   ├── middlewares/         (Middlewares globais: erro, auth)
+│   │   ├── authMiddleware.js
+│   │   └── errorMiddleware.js
+│   │
+│   ├── modules/             (Aqui entra a mágica!)
+│   │   ├── auth/
+│   │   │   ├── authController.js
+│   │   │   └── authRoutes.js
+│   │   │
+│   │   ├── clientes/
+│   │   │   ├── clienteController.js
+│   │   │   ├── clienteModel.js
+│   │   │   └── clienteRoutes.js
+│   │   │
+│   │   ├── reservas/
+│   │   │   ├── reservaController.js
+│   │   │   ├── reservaModel.js
+│   │   │   └── reservaRoutes.js
+│   │   │
+│   │   └── usuarios/        (Admin)
+│   │       ├── usuarioController.js
+│   │       ├── usuarioModel.js
+│   │       └── usuarioRoutes.js
+│   │
+│   └── app.js               (Apenas inicialização e injeção de rotas)
+│
+├── .github/workflows/       (padrão do Github)
+│   └── sonarcloud.yml
+├── package.json
+└── package-lock.json
+```
 ## 🛠️ Principais Tecnologias
 
 <div align="center">
