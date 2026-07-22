@@ -1,8 +1,6 @@
-const db = require('../config/db');
+const db = require('../../../config/db');
 const bcrypt = require('bcrypt');
 
-
-// Criar novo usuário
 exports.criarUsuario = async (req, res) => {
   const { nome_Usuario, cpf_Usuario, email_Usuario, telefone_Usuario, senha_Usuario } = req.body;
   if (!nome_Usuario || !cpf_Usuario || !email_Usuario || !senha_Usuario) {
@@ -10,7 +8,6 @@ exports.criarUsuario = async (req, res) => {
   }
   
   try {
-    // Verificar se já existe um usuário com o mesmo e-mail
     const [existingUser] = await db.execute('SELECT * FROM Usuario WHERE email_Usuario = ?', [email_Usuario]);
     if (existingUser.length > 0) {
       return res.status(400).json({ message: 'E-mail já está em uso' });
@@ -29,7 +26,6 @@ exports.criarUsuario = async (req, res) => {
   }
 };
 
-// Listar todos os usuários
 exports.listarUsuarios = async (req, res) => {
   try {
     const [rows] = await db.execute(
@@ -42,7 +38,6 @@ exports.listarUsuarios = async (req, res) => {
   }
 };
 
-// Buscar usuário por ID
 exports.buscarUsuarioPorId = async (req, res) => {
   const { id } = req.params;
   try {
@@ -58,10 +53,9 @@ exports.buscarUsuarioPorId = async (req, res) => {
   }
 };
 
-// Atualizar usuário
 exports.atualizarUsuario = async (req, res) => {
   const { id } = req.params;
-  const { nome_Usuario, email_Usuario, telefone_Usuario, senha_Usuario } = req.body; // <-- Adicionado senha_Usuario aqui
+  const { nome_Usuario, email_Usuario, telefone_Usuario, senha_Usuario } = req.body; 
 
   if (!nome_Usuario || !email_Usuario) {
     return res.status(400).json({ message: 'Nome e e-mail são obrigatórios para atualizar.' });
@@ -70,10 +64,9 @@ exports.atualizarUsuario = async (req, res) => {
   try {
     let hashedPassword = null;
     if (senha_Usuario) {
-        hashedPassword = await bcrypt.hash(senha_Usuario, 10); // Criptografa a nova senha
+        hashedPassword = await bcrypt.hash(senha_Usuario, 10); 
     }
 
-    // Prepara os campos a serem atualizados
     const campos = [];
     const valores = [];
 
@@ -89,7 +82,7 @@ exports.atualizarUsuario = async (req, res) => {
         campos.push('telefone_Usuario = ?');
         valores.push(telefone_Usuario);
     }
-    if (hashedPassword !== null) { // Se uma nova senha foi fornecida e criptografada
+    if (hashedPassword !== null) { 
         campos.push('senha_Usuario = ?');
         valores.push(hashedPassword);
     }
@@ -98,23 +91,22 @@ exports.atualizarUsuario = async (req, res) => {
         return res.status(400).json({ message: 'Nenhum dado válido fornecido para atualização.' });
     }
 
-    valores.push(id); // Adiciona o ID no final para a cláusula WHERE
+    valores.push(id); 
 
     const sql = `UPDATE Usuario SET ${campos.join(', ')} WHERE id = ?`;
-const [result] = await db.execute(sql, valores);
+    const [result] = await db.execute(sql, valores);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: 'Usuário não encontrado para atualização.' });
     }
 
-res.json({ message: 'Usuário atualizado com sucesso' });
-} catch (err) {
-console.error('Erro ao atualizar usuário:', err);
-res.status(500).json({ error: 'Erro ao atualizar usuário', details: err.message });
-}
+    res.json({ message: 'Usuário atualizado com sucesso' });
+  } catch (err) {
+    console.error('Erro ao atualizar usuário:', err);
+    res.status(500).json({ error: 'Erro ao atualizar usuário', details: err.message });
+  }
 };
 
-// Deletar usuário
 exports.deletarUsuario = async (req, res) => {
   const { id } = req.params;
   try {

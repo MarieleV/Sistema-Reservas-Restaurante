@@ -1,13 +1,11 @@
-// Configuração do Express e integração com as rotas
 require('dotenv').config();
-
-// app.js
 const express = require('express');
 const app = express();
-const clienteRoutes = require('./routes/clienteRoutes');
-const reservaRoutes = require('./routes/reservaRoutes');
-const authRoutes = require('./routes/authRoutes');
-const usuarioRoutes = require('./routes/usuarioRoutes'); // ✅ nova rota
+
+const clienteRoutes = require('./src/modules/clientes/clienteRoutes');
+const reservaRoutes = require('./src/modules/reservas/reservaRoutes');
+const authRoutes = require('./src/modules/auth/authRoutes');
+const usuarioRoutes = require('./src/modules/usuarios/usuarioRoutes'); 
 
 // Middleware para servir arquivos estáticos (HTML, CSS, JS, imagens)
 app.use(express.static('public'));
@@ -17,7 +15,7 @@ app.use(express.json()); // Middleware para processar o corpo das requisições 
 
 // Verificando o corpo da requisição antes das rotas
 app.use((req, res, next) => {
-  console.log('Corpo da requisição:', req.body); // Log para depuração
+  console.log('Corpo da requisição:', req.body);
   next();
 });
 
@@ -25,7 +23,7 @@ app.use((req, res, next) => {
 app.use('/api/clientes', clienteRoutes);
 app.use('/api/reservas', reservaRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/usuarios', usuarioRoutes); // ✅ nova rota de usuários
+app.use('/api/usuarios', usuarioRoutes);
 
 // Middleware de erro
 const errorMiddleware = require('./middlewares/errorMiddleware');

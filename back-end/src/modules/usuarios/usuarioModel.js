@@ -1,16 +1,12 @@
-// Model de usuários (interação com o banco)
-
-const db = require('../config/db');
-const bcrypt = require('bcrypt'); // <-- Linha adicionada: Importa a biblioteca bcrypt
+const db = require('../../../config/db');
+const bcrypt = require('bcrypt'); 
 
 const Usuario = {
     criar: async ({ nome, cpf, telefone, email, senha }) => {
-        // Criptografar a senha antes de salvar no banco de dados
-        const hashedPassword = await bcrypt.hash(senha, 10); // O '10' é o 'saltRounds', que determina a complexidade da criptografia. Um valor entre 10 e 12 é geralmente recomendado.
-
+        const hashedPassword = await bcrypt.hash(senha, 10); 
         const [result] = await db.execute(
             'INSERT INTO Usuario (nome_Usuario, cpf_Usuario, telefone_Usuario, email_Usuario, senha_Usuario) VALUES (?, ?, ?, ?, ?)',
-            [nome, cpf, telefone, email, hashedPassword] // <-- Alterado: Usamos a senha criptografada aqui
+            [nome, cpf, telefone, email, hashedPassword] 
         );
         return result.insertId;
     },
