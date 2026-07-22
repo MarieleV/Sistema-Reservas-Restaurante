@@ -1,11 +1,8 @@
-//Configurações do projeto (chaves secretas, etc.)
+require('dotenv').config();
 
 module.exports = {
-    jwtSecret: 'sua_chave_secreta_aqui',
+    jwtSecret: process.env.JWT_SECRET || 'sua_chave_secreta_aqui',
     dbConfig: {
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'db_restaurante_reserva',
+        connectionString: process.env.SUPABASE_DB_URL 
     },
 };
