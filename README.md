@@ -124,7 +124,7 @@ back-end/
 │   │   ├── authMiddleware.js
 │   │   └── errorMiddleware.js
 │   │
-│   ├── modules/             (Aqui entra a mágica!)
+│   ├── modules/            
 │   │   ├── auth/
 │   │   │   ├── authController.js
 │   │   │   └── authRoutes.js
