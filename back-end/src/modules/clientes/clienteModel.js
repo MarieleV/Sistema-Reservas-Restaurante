@@ -3,10 +3,10 @@ const db = require('../../../config/db');
 const Cliente = {
   criar: async (idUsuario) => {
     const [result] = await db.execute(
-      'INSERT INTO Cliente (id_Usuario) VALUES (?)',
+      'INSERT INTO Cliente (id_Usuario) VALUES (?) RETURNING id',
       [idUsuario]
     );
-    return result.insertId;
+    return result[0].id;
   },
 
   listarTodos: async () => {

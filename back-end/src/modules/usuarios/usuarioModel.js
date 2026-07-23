@@ -5,10 +5,10 @@ const Usuario = {
     criar: async ({ nome, cpf, telefone, email, senha }) => {
         const hashedPassword = await bcrypt.hash(senha, 10); 
         const [result] = await db.execute(
-            'INSERT INTO Usuario (nome_Usuario, cpf_Usuario, telefone_Usuario, email_Usuario, senha_Usuario) VALUES (?, ?, ?, ?, ?)',
+            'INSERT INTO Usuario (nome_Usuario, cpf_Usuario, telefone_Usuario, email_Usuario, senha_Usuario) VALUES (?, ?, ?, ?, ?) RETURNING id',
             [nome, cpf, telefone, email, hashedPassword] 
         );
-        return result.insertId;
+        return result[0].id;
     },
 
     listarTodos: async () => {

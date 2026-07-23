@@ -3,10 +3,10 @@ const db = require('../../../config/db');
 const Reserva = {
   criar: async ({ numeropessoas, data, clienteId }) => {
     const [result] = await db.execute(
-      'INSERT INTO Reserva (numeropessoas_Reserva, data_Reserva, Cliente_id) VALUES (?, ?, ?)',
+      'INSERT INTO Reserva (numeropessoas_Reserva, data_Reserva, Cliente_id) VALUES (?, ?, ?) RETURNING id',
       [numeropessoas, data, clienteId]
     );
-    return result.insertId;
+    return result[0].id;
   },
 
   listarTodas: async () => {
